@@ -13,6 +13,8 @@ holding the redis client.
 
 YMMV.
 
+> Note: This library is written against vserion 3 of the ServiceStack libraries.  
+
 Usage
 -----
 
