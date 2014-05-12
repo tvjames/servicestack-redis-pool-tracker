@@ -28,7 +28,7 @@ namespace PoolMonitor
             }
 
             this.redisClientsManager = redisClientsManager;
-            Logger.InfoFormat("Constructed");
+            Logger.DebugFormat("Constructed");
 
             var timer = new Timer(state => this.DumpState());
             timer.Change(TimeSpan.FromSeconds(30), TimeSpan.FromMinutes(1));
@@ -36,7 +36,7 @@ namespace PoolMonitor
 
         public void Dispose()
         {
-            Logger.InfoFormat("Disposed");
+            Logger.DebugFormat("Disposed");
             this.redisClientsManager.Dispose();
         }
 
@@ -61,13 +61,13 @@ namespace PoolMonitor
 
         public ICacheClient GetCacheClient()
         {
-            Logger.InfoFormat("GetCacheClient");
+            Logger.DebugFormat("GetCacheClient");
             return this.redisClientsManager.GetCacheClient();
         }
 
         public ICacheClient GetReadOnlyCacheClient()
         {
-            Logger.InfoFormat("GetReadOnlyCacheClient");
+            Logger.DebugFormat("GetReadOnlyCacheClient");
             return this.redisClientsManager.GetReadOnlyCacheClient();
         }
 
@@ -99,10 +99,10 @@ namespace PoolMonitor
                 }
                 var duration = DateTime.Now - frame.Initialised;
 
-                Logger.InfoFormat("{0,18} Disposed {1} released from instance of type {2} checked out for {3}", method, frame.Id, frame.ProvidedToInstanceOfType.FullName, duration);
+                Logger.DebugFormat("{0,18} Disposed {1} released from instance of type {2} checked out for {3}", method, frame.Id, frame.ProvidedToInstanceOfType.FullName, duration);
             };
 
-            Logger.InfoFormat("{0,18} Tracking {1} allocated to instance of type {2}", method, frame.Id, frame.ProvidedToInstanceOfType.FullName);
+            Logger.DebugFormat("{0,18} Tracking {1} allocated to instance of type {2}", method, frame.Id, frame.ProvidedToInstanceOfType.FullName);
             return proxy.GetTransparentProxy() as IRedisClient;
         }
 
