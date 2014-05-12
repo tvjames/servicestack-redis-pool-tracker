@@ -25,6 +25,8 @@ namespace PoolMonitor
 
         public override IMessage Invoke(IMessage msg)
         {
+            // Thanks: http://stackoverflow.com/a/15734124/211978
+
             var methodCall = (IMethodCallMessage)msg;
             var method = (MethodInfo)methodCall.MethodBase;
 
@@ -44,7 +46,7 @@ namespace PoolMonitor
             }
             catch (TargetInvocationException e)
             {
-                Console.WriteLine("Exception: " + e);
+                Logger.Error("Reflection exception when invoking target method", e);
                 return new ReturnMessage(e.InnerException, msg as IMethodCallMessage);
             }
         }
